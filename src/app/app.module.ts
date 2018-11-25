@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -35,11 +36,13 @@ import { AppRoutingModule } from './app-routing.module';
     SettingsComponent,
     NotFoundComponent
   ],
-  imports: [BrowserModule,
-  AppRoutingModule,
-  AngularFireModule.initializeApp(environment.firebase,'clientpanel'),
-  AngularFirestoreModule,
-  AngularFireAuthModule
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase,'clientpanel'),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
