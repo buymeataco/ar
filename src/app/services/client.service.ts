@@ -32,4 +32,10 @@ export class ClientService {
   	}));
   	return this.clients;
   }//getClients()
+
+  newClient(client: Client) {
+    console.log('New Client: ', client);
+    this.clientsCollection.add(client);
+  }
+
 }//ClientService
