@@ -21,7 +21,7 @@ export class ClientService {
   }
 
   getClients(): Observable<Client[]> {
-  	// Get the clients with their associated id. Study this more at: https://github.com/angular/angularfire2
+  	// Get the clients with their associated id. The syntax has changed, study it more at: https://github.com/angular/angularfire2
   	this.clients = this.clientsCollection.snapshotChanges().pipe(
       map(changes => {
   		return changes.map(action => {
@@ -37,5 +37,20 @@ export class ClientService {
     console.log('New Client: ', client);
     this.clientsCollection.add(client);
   }
+
+  getClient(id: string): Observable<Client> {
+    this.clientDoc = this._afs.doc<Client>(`clients/${id}`);
+    this.client = this.clientDoc.snapshotChanges().pipe(
+      map(action => {
+      if (action.payload.exists === false) {
+        return null;
+      } else {
+        const data = action.payload.data() as Client;
+        data.id = action.payload.id;
+        return data;
+      }
+    }));
+    return this.client;
+  }//getClient
 
 }//ClientService
