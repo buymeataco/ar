@@ -18,8 +18,8 @@ export class ClientDetailsComponent implements OnInit {
   	private _clientService: ClientService,
   	private _router: Router,
 		private _route: ActivatedRoute,
-		private __flashMessage: FlashMessagesService
-  	) { }
+		private _flashMessage: FlashMessagesService
+  ) { }
 
   ngOnInit() {
   	//get id from URI using the route service
@@ -33,7 +33,11 @@ export class ClientDetailsComponent implements OnInit {
   		}
   		this.client = client;
   	});
-
   }//ngOnInit
+
+  updateBalance() {
+   this._clientService.updateClient(this.client);
+   this._flashMessage.show('Balance updated.', {cssClass: `alert-success`, timeout: 4000});
+  }
 
 }

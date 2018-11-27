@@ -15,14 +15,14 @@ export class ClientsComponent implements OnInit {
   constructor(private _clientService: ClientService) { }
 
   ngOnInit() {
-  	this._clientService.getClients().subscribe(clients => { 
+  	this._clientService.getClients().subscribe(clients => {
      this.clients = clients;
       this.getTotalOwed();
    });
   }//ngOnInit
 
   getTotalOwed() {
-    this.totalOwed = this.clients.reduce((a,b) => a + b.balance, 0);
+    this.totalOwed = this.clients.reduce((total, client) => total + parseFloat(client.balance.toString()), 0);
   }
 
 }//ClientsComponent

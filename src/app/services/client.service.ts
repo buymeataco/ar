@@ -53,4 +53,9 @@ export class ClientService {
     return this.client;
   }//getClient
 
+  updateClient(client: Client) {
+    this.clientDoc = this._afs.doc(`clients/${client.id}`);
+    this.clientDoc.update(client);
+  }
+
 }//ClientService
