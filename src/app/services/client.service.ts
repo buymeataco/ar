@@ -10,27 +10,27 @@ import { Client } from '../models/Client';
 })
 export class ClientService {
   //this constrains the properties to the Clients model.
-	clientsCollection: AngularFirestoreCollection<Client>;
-	clientDoc: AngularFirestoreDocument<Client>;
-	clients: Observable<Client[]>;
-	client: Observable<Client>;
+  clientsCollection: AngularFirestoreCollection<Client>;
+  clientDoc: AngularFirestoreDocument<Client>;
+  clients: Observable<Client[]>;
+  client: Observable<Client>;
 
   constructor(private _afs: AngularFirestore) {
     //this is similar to the getXMLHttpRequest() function
-  	this.clientsCollection = this._afs.collection('clients', ref => ref.orderBy('lastName', 'asc'));
+    this.clientsCollection = this._afs.collection('clients', ref => ref.orderBy('lastName', 'asc'));
   }
 
   getClients(): Observable<Client[]> {
-  	// Get the clients with their associated id. The syntax has changed, study it more at: https://github.com/angular/angularfire2
-  	this.clients = this.clientsCollection.snapshotChanges().pipe(
+    // Get the clients with their associated id. The syntax has changed, study it more at: https://github.com/angular/angularfire2
+    this.clients = this.clientsCollection.snapshotChanges().pipe(
       map(changes => {
-  		return changes.map(action => {
-  			const data = action.payload.doc.data() as Client;
-  			data.id = action.payload.doc.id;
-  			return data;
-  		});
-  	}));
-  	return this.clients;
+      return changes.map(action => {
+        const data = action.payload.doc.data() as Client;
+        data.id = action.payload.doc.id;
+        return data;
+      });
+    }));
+    return this.clients;
   }//getClients()
 
   newClient(client: Client) {
