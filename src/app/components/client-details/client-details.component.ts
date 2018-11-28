@@ -9,35 +9,43 @@ import { Client } from '../../models/Client';
   templateUrl: './client-details.component.html'
 })
 export class ClientDetailsComponent implements OnInit {
-	id: string;
-	client: Client;
-	hasBalance: boolean = false;
-	showBalanceUpdateInput: boolean= false;
+  id: string;
+  client: Client;
+  hasBalance: boolean = false;
+  showBalanceUpdateInput: boolean= false;
 
   constructor(
-  	private _clientService: ClientService,
-  	private _router: Router,
-		private _route: ActivatedRoute,
-		private _flashMessage: FlashMessagesService
-  ) { }
+    private _clientService: ClientService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _flashMessage: FlashMessagesService
+  ) {}
 
   ngOnInit() {
-  	//get id from URI using the route service
-  	this.id = this._route.snapshot.params['id'];
-  	//get client
-  	this._clientService.getClient(this.id).subscribe(client => {
-  		if(client != null) {
-  			if (client.balance > 0) {
-  				this.hasBalance = true;
-  			}
-  		}
-  		this.client = client;
-  	});
+    //get id from URI using the route service
+    this.id = this._route.snapshot.params['id'];
+    //get client
+    this._clientService.getClient(this.id).subscribe(client => {
+      if(client != null) {
+        if (client.balance > 0) {
+          this.hasBalance = true;
+        }
+      }
+      this.client = client;
+    });
   }//ngOnInit
 
   updateBalance() {
    this._clientService.updateClient(this.client);
    this._flashMessage.show('Balance updated.', {cssClass: `alert-success`, timeout: 4000});
+  }
+
+  onDeleteClick() {
+    if (confirm('Are you sure?')) {
+      this._clientService.deleteClient(this.client);
+      this._flashMessage.show('Client successfully removed.', { cssClass: `alert-success`, timeout: 4000 });
+      this._router.navigate(['/']);
+    }
   }
 
 }
