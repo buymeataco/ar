@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
+// had import this or angular didn't know what the map method was
 import { map } from 'rxjs/operators';
 
 import { Client } from '../models/Client';
