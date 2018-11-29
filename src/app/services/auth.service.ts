@@ -18,4 +18,9 @@ export class AuthService {
   	//in the tutorial, .pipe was .map
   	return this._afAuth.authState.pipe(auth => auth);
   }
+
+  logout() {
+    this._afAuth.auth.signOut();
+  }
+
 }
