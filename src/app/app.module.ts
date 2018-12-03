@@ -24,6 +24,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ClientService } from './services/client.service';
 import { AuthService } from './services/auth.service';
 import { SettingsService } from './services/settings.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { SettingsService } from './services/settings.service';
     AngularFireAuthModule,
     FlashMessagesModule.forRoot()
   ],
-  providers: [ClientService, AuthService, SettingsService],
+  providers: [ClientService, AuthService, SettingsService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
